@@ -6,7 +6,7 @@ var moment = require('moment');
 
 // Load configuration from .env file
 require('dotenv').config();
-
+console.log('Process ENv : ', process.env.COUNTRY_CODE);
 // Load and initialize MesageBird SDK
 var messagebird = require('messagebird')(process.env.MESSAGEBIRD_API_KEY);
 
@@ -55,7 +55,7 @@ app.post('/book', function(req, res) {
     if (appointmentDT.isBefore(earliestPossibleDT)) {
         // If not, show an error
         res.render('home', {
-            error : "You can only book appointments that are at least 3 hours in the future!",
+            error : "You can only add membership date that are at least 3 hours in the future!",
             name : req.body.name,
             treatment : req.body.treatment,
             number: req.body.number,
@@ -67,8 +67,7 @@ app.post('/book', function(req, res) {
 
     // Check if phone number is valid
     messagebird.lookup.read(req.body.number, process.env.COUNTRY_CODE, function (err, response) {
-        console.log(err);
-        console.log(response);
+       
 
         if (err && err.errors[0].code == 21) {
             // This error code indicates that the phone number has an unknown format
