@@ -6,7 +6,6 @@ var moment = require('moment');
 
 // Load configuration from .env file
 require('dotenv').config();
-console.log('Process ENv : ', process.env.COUNTRY_CODE);
 // Load and initialize MesageBird SDK
 var messagebird = require('messagebird')(process.env.MESSAGEBIRD_API_KEY);
 
